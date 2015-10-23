@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html ng-app="goverview">
+	<head>
+		<meta charset="utf-8">
+		<title>Goverview</title>
+		<link rel="stylesheet" href="static/css/font-awesome.min.css">
+		<link rel="stylesheet" href="static/css/style.min.css">
+	</head>
+	<body ng-controller="MainController">
+		<aside ng-class="{'active': paneShow}">
+			<nav>
+				<div>
+					<label for="nodes">Nodes:</label>
+					<select id="nodes" multiple="" ng-model="form.nodes">
+						<option value="{{ n.name }}" ng-repeat="n in nodes" ng-selected="form.nodes.indexOf(n.name) != -1">{{ n.label || n.name }}</option>
+					</select>
+				</div>
+
+				<div>
+					<label for="groups">Groups:</label>
+					<select id="groups" multiple="" ng-model="form.groups">
+						<option value="{{ g }}" ng-repeat="g in groups" ng-selected="form.groups.indexOf(g) != -1">{{ g }}</option>
+					</select>
+				</div>
+
+				<div>
+					<label for="states">States:</label>
+					<select id="states" multiple="" size="3" ng-model="form.states">
+						<option value="1" ng-selected="form.states.indexOf('1') != -1">Warning</option>
+						<option value="2" ng-selected="form.states.indexOf('2') != -1">Critical</option>
+						<option value="3" ng-selected="form.states.indexOf('3') != -1">Unknown</option>
+					</select>
+				</div>
+
+				<div>
+					<input type="checkbox" id="acknowledges" ng-model="form.acknowledges">
+					<label for="acknowledges">Show acknowledges</label>
+				</div>
+
+				<div>
+					<input type="checkbox" id="downtimes" ng-model="form.downtimes">
+					<label for="downtimes">Show downtimes</label>
+				</div>
+
+				<button ng-click="resetForm()"><span class="fa fa-refresh"></span> Reset</button>
+			</nav>
+		</aside>
+
+		<article>
+			<div id="filter" class="overlay" ng-show="filterShow">
+				<div class="box">
+					<span class="fa fa-search"></span><input type="text" name="filter" placeholder="Search Filter" ng-blur="filterShow = false" ng-model="filter">
+				</div>
+			</div>
+
+			<div id="tooltip" class="tooltip" ng-mouseleave="setTooltip($event)" ng-show="tooltipShow">
+				<table class="tooltip-info">
+					<tr>
+						<th>State changed:</th>
+						<td title="{{ tooltip.changed }}">{{ tooltip.changed_relative }}</td>
+					</tr>
+					<tr ng-if="tooltip.output">
+						<th>Output:</th>
+						<td>{{ tooltip.output }}</td>
+					</tr>
+					<tr>
+						<th>Node:</th>
+						<td>{{ tooltip.node }}</td>
+					</tr>
+					<tr ng-if="tooltip.comments.length > 0">
+						<th>Comments:</th>
+						<td>
+							<ul>
+								<li ng-repeat="c in tooltip.comments">{{ c.content }}<br><span class="author">by {{ c.author }}</span> <span class="author">on {{ c.date|date:'medium' }}</span></li>
+							</ul>
+						</td>
+					</tr>
+					<tr ng-if="tooltip.links.length > 0">
+						<th>Links:</th>
+						<td>
+							<ul>
+								<li ng-repeat="l in tooltip.links"><a href="{{ l[1] }}" target="_blank">{{ l[0] }}</a></li>
+							</ul>
+						</td>
+					</tr>
+				</table>
+			</div>
+
+			<p class="placeholder" ng-show="!loading && !error && data.length == 0"><span class="fa fa-check-circle"></span> Hooray, nothing to report!</p>
+
+			<p class="placeholder loading" ng-show="loading"><span class="fa fa-pulse fa-spinner"></span> Loading...</p>
+
+			<p class="placeholder error" ng-show="error"><span class="fa fa-exclamation-circle"></span> Ooops, something went wrong!<br><a href="" ng-click="refresh()">Retry</a></p>
+
+			<table class="view" ng-show="!loading">
+				<thead>
+					<tr>
+						<th></th>
+						<th title="{{ name }}" ng-repeat="name in services"><span>{{ name }}</span></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="host in data">
+						<th>{{ host.name }}</th>
+						<td class="state{{ host.state }} host" colspan="{{ services.length }}" ng-class="{'acknowledged': host.acknowledged, 'downtime': host.in_downtime, 'new': host.state_new}" ng-if="host.state > 0 || host.in_downtime"><span class="fa" ng-mouseenter="setTooltip($event, host)" ng-mouseleave="setTooltip($event, host)"></span></td>
+						<td class="state{{ service.state }}" ng-init="service = getService(host, name)" ng-repeat="name in services" ng-class="{'acknowledged': service.acknowledged, 'downtime': service.in_downtime, 'new': service.state_new}" ng-if="host.state == 0 && !host.in_downtime"><span class="fa" ng-mouseenter="service ? setTooltip($event, host, service) : ''" ng-mouseleave="service ? setTooltip($event, host, service) : ''"></span></td>
+					</tr>
+				</tbody>
+			</table>
+		</article>
+
+		<script src="static/js/jquery.min.js"></script>
+		<script src="static/js/angular.min.js"></script>
+		<script src="static/js/angular-cookies.min.js"></script>
+		<script src="static/js/angular-hotkeys.min.js"></script>
+		<script src="static/js/angular-resource.min.js"></script>
+		<script src="static/js/moment.min.js"></script>
+		<script src="static/js/goverview.min.js"></script>
+	</body>
+</html>

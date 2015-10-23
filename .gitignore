@@ -1,0 +1,6 @@
+/build
+/dist
+/cmd/goverview/data.go
+/static/css/style.min.css
+/static/js/goverview.min.js
+/vendor/checkouts

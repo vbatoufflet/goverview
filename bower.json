@@ -1,0 +1,16 @@
+{
+  "name": "goverview",
+  "ignore": [
+    "vendor/bower_components"
+  ],
+  "dependencies": {
+    "angular": "~1.4.7",
+    "angular-cookies": "~1.4.7",
+    "angular-hotkeys": "chieffancypants/angular-hotkeys#~1.6.0",
+    "angular-resource": "~1.4.7",
+    "font-awesome": "~4.4.0",
+    "jquery": "~2.1.4",
+    "moment": "~2.10.6",
+    "roboto-fontface": "~0.4.3"
+  }
+}

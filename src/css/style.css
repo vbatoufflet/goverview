@@ -1,0 +1,304 @@
+
+@font-face {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: normal;
+    src: url('../fonts/Roboto-Light.eot');
+    src: url('../fonts/Roboto-Light.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/Roboto-Light.woff') format('woff'),
+         url('../fonts/Roboto-Light.ttf') format('truetype'),
+         url('../fonts/Roboto-Light.svg#Roboto-Light') format('svg');
+    text-rendering: optimizeLegibility;
+}
+
+@keyframes blink {
+    0%   { opacity: 1; }
+    50%  { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    font-size: 13px;
+    overflow-y: scroll;
+}
+
+a {
+    color: inherit;
+}
+
+button,
+input,
+label,
+select,
+textarea {
+    font-family: inherit;
+    font-size: inherit;
+}
+
+aside {
+    background-color: rgba(68, 68, 68, 0.97);
+    bottom: -2em;
+    box-sizing: border-box;
+    color: #eee;
+    left: 0;
+    min-width: 20em;
+    overflow: auto;
+    padding: 4em 2em;
+    position: fixed;
+    transform: translateX(-20vw);
+    transition: transform 0.25s ease-out;
+    top: -2em;
+    width: 20vw;
+    z-index: 100;
+}
+
+aside.active {
+    transform: translateX(0);
+    transition: transform 0.25s ease-out;
+}
+
+aside nav > *:first-child {
+    margin-top: 0;
+}
+
+aside label {
+    display: inline-block;
+    margin: 0.65em 0 0.35em;
+}
+
+aside input[type=checkbox] + label {
+    margin-left: 0.65em;
+}
+
+aside select {
+    border: none;
+    display: block;
+    width: 100%;
+}
+
+aside select option {
+    padding: 0.25em 0.5em;
+}
+
+aside button {
+    border: none;
+    display: block;
+    font-size: 1.25em;
+    line-height: 2em;
+    margin-top: 1em;
+    width: 100%;
+}
+
+aside button:focus,
+aside button:hover {
+    background-color: #777;
+}
+
+aside button span {
+    margin-right: 0.25em;
+}
+
+.view {
+    border-spacing: 1px;
+    line-height: 1.5em;
+    margin: 0 auto;
+}
+
+.view th:nth-child(even),
+.view td:nth-child(even) {
+    background-color: #f7f7f7;
+}
+
+.view thead tr {
+    height: 12em;
+}
+
+.view thead th {
+    position: relative;
+    white-space: nowrap;
+}
+
+.view thead th span {
+    bottom: 0;
+    box-sizing: border-box;
+    left: 0;
+    line-height: 2em;
+    overflow: hidden;
+    padding: 0 0.5em;
+    position: absolute;
+    text-align: left;
+    text-overflow: ellipsis;
+    transform-origin: 0;
+    transform: rotate(270deg) translateX(-2em);
+    width: 12em;
+}
+
+.view tbody th {
+    padding: 0 0.5em;
+    text-align: right;
+}
+
+.view tbody td span {
+    display: block;
+    height: 2em;
+    position: relative;
+    width: 2em;
+}
+
+.view tbody td.host span {
+    width: auto;
+}
+
+.view tbody td.state0 span {
+    background-color: #30cd72;
+}
+
+.view tbody td.host.state1 span {
+    background-color: #222;
+}
+
+.view tbody td.state1 span {
+    background-color: #f1c40f;
+}
+
+.view tbody td.state2 span {
+    background-color: #e74c3c;
+}
+
+.view tbody td.state3 span,
+.view tbody td.host.state2 span {
+    background-color: #9b59b6;
+}
+
+.view tbody td.acknowledged span::after {
+    color: rgba(255, 255, 255, 0.5);
+    content: '\f00c';
+    cursor: default;
+    font-size: 1.1em;
+    line-height: 1.8em;
+    position: absolute;
+    right: 0;
+    text-align: center;
+    width: 1.8em;
+}
+
+.view tbody td.downtime span {
+    background-color: #3498db !important;
+}
+
+.view tbody td.new span {
+    animation: blink 1s ease infinite;
+}
+
+.placeholder {
+    color: #aaa;
+    font-size: 2.5em;
+    left: 0;
+    line-height: 2em;
+    margin-top: -2em;
+    position: absolute;
+    right: 0;
+    text-align: center;
+    top: 50%;
+}
+
+.placeholder .fa {
+    display: block;
+    font-size: 2em;
+}
+
+.placeholder.error {
+    color: #e74c3c;
+}
+
+.placeholder a {
+    color: #000;
+    font-size: 0.5em;
+    position: relative;
+    top: -1em;
+}
+
+.overlay .box {
+    background-color: rgba(68, 68, 68, 0.97);
+    border-radius: 0.35em;
+    box-shadow: 0 0 1em rgba(68, 68, 68, 0.5);
+    color: #eee;
+    font-size: 1.5em;
+    padding: 1em;
+    z-index: 100;
+}
+
+.tooltip {
+    background-color: rgba(68, 68, 68, 0.97);
+    border-radius: 0.2em;
+    box-shadow: 0 0 0.35em rgba(68, 68, 68, 0.5);
+    color: #eee;
+    margin: 1.5em 0 0 -0.5em;
+    max-width: 30%;
+    padding: 0.65em 0;
+    position: absolute;
+    z-index: 200;
+}
+
+.tooltip::before {
+    border: 0.5em solid transparent;
+    border-bottom-color: #444;
+    bottom: 100%;
+    content: '';
+    display: block;
+    height: 0;
+    left: 1em;
+    position: absolute;
+    width: 0;
+}
+
+.tooltip-info {
+    border-spacing: 1em 0.35em;
+}
+
+.tooltip-info th {
+    color: #aaa;
+    font-weight: normal;
+    text-align: right;
+    vertical-align: top;
+    white-space: nowrap;
+}
+
+.tooltip-info ul {
+    list-style-type: none;
+}
+
+.overlay .box {
+    left: 30%;
+    line-height: 3em;
+    padding: 0 1em 0 2.5em;
+    position: fixed;
+    right: 30%;
+    top: 5%;
+}
+
+.overlay .box .fa {
+    left: 0.5em;
+    line-height: inherit;
+    position: absolute;
+    text-align: center;
+    width: 2em;
+}
+
+.overlay .box input {
+    background-color: transparent;
+    border: none;
+    color: inherit;
+    height: 1.5em;
+    width: 100%;
+}
+
+.overlay .box input:focus {
+    outline: none;
+}

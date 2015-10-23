@@ -1,0 +1,20 @@
+---
+bind_addr: 0.0.0.0:8080
+poller:
+  nodes:
+    - name: nagios
+      label: Nagios
+      remote_addr: tcp:192.168.1.10:6557
+      poll_interval: 30
+      links:
+        - label: Go to Nagios
+          host_url: 'https://nagios.example.net/cgi-bin/nagios3/extinfo.cgi?type=1&host=%h'
+          service_url: 'https://nagios.example.net/cgi-bin/nagios3/extinfo.cgi?type=2&host=%h&service=%s'
+    - name: centreon
+      label: Host
+      remote_addr: tcp:192.168.1.11:6557
+      poll_interval: 30
+       links:
+        - label: Go to Centreon
+          host_url: 'https://centreon.example.net/centreon/main.php?p=20102&o=hd&host_name=%h'
+          service_url: 'https://centreon.example.net/centreon/main.php?p=20201&o=svcd&host_name=%h&service_description=%s'
