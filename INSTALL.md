@@ -39,6 +39,7 @@ The Goverview configuration consists of a nodes list used by the background poll
 Main configuration parameters:
 
  * `bind_addr` _(string)_: service bind address and port
+ * `log_path` _(string)_: logging file path, uses `stdout` if left empty _(optional)_
  * `poller` _(object)_: poller configuration
 
 Poller configuration parameters:
