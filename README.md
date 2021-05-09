@@ -13,7 +13,7 @@ The source code is available at [Github][0], licensed under the terms of the [BS
 Installation
 ------------
 
-Please note that Goverview is currently under development and might not be as production ready as you want it to be.
+Please note that Goverview is no longer maintained.
 
 Please see [INSTALL.md](INSTALL.md) file for build instructions and installation procedures.
 
